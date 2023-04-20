@@ -40,9 +40,11 @@
         "views/mixins_groups.xml",
         "views/res_config_settings.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "assets": {
+        "web.assets_backend": [
+            "static/src/xml/*.xml",
+        ],
+    },
     "images": [
         'static/description/banner.png'
     ],
