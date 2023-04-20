@@ -37,7 +37,7 @@
     "data": [
         "actions/ir_attachment.xml",
         "views/ir_attachment.xml",
-        "views/mixins_groups.xml",
+        # "views/mixins_groups.xml",
         "views/res_config_settings.xml",
     ],
     "assets": {
