@@ -52,7 +52,7 @@ class IrAttachment(models.Model):
         vals.update({
             'file_size': len(bin_data),
             'checksum': self._compute_checksum(bin_data),
-            'index_content': self._index(bin_data, attach.datas_fname, attach.mimetype),
+            'index_content': self._index(bin_data, attach.store_fname, attach.mimetype),
         })
         return vals
     
