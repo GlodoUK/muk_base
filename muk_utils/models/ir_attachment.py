@@ -43,7 +43,7 @@ class IrAttachment(models.Model):
     @api.model
     def _get_datas_inital_vals(self):
         return {
-            'store_fname': False,
+            'res_name': False,
             'db_datas': False,
         }
     
@@ -52,21 +52,21 @@ class IrAttachment(models.Model):
         vals.update({
             'file_size': len(bin_data),
             'checksum': self._compute_checksum(bin_data),
-            'index_content': self._index(bin_data, attach.store_fname, attach.mimetype),
+            'index_content': self._index(bin_data, attach.res_name, attach.mimetype),
         })
         return vals
     
     @api.model
     def _get_datas_clean_vals(self, attach):
         vals = {}
-        if attach.store_fname:
-            vals['store_fname'] = attach.store_fname
+        if attach.res_name:
+            vals['res_name'] = attach.res_name
         return vals
     
     @api.model
     def _clean_datas_after_write(self, vals):
-        if 'store_fname' in vals:
-            self._file_delete(vals['store_fname'])
+        if 'res_name' in vals:
+            self._file_delete(vals['res_name'])
    
     #----------------------------------------------------------
     # Actions
@@ -91,7 +91,7 @@ class IrAttachment(models.Model):
             raise AccessError(_('Only administrators can execute this action.'))
         storage_domain = {
             'db': ('db_datas', '=', False),
-            'file': ('store_fname', '=', False), 
+            'file': ('res_name', '=', False), 
         }
         record_domain = [
             '&', ('type', '=', 'binary'),
@@ -142,7 +142,7 @@ class IrAttachment(models.Model):
             vals = self._get_datas_inital_vals()
             vals = self._update_datas_vals(vals, attach, bin_data)
             if value and location != 'db':
-                vals['store_fname'] = self._file_write(value, vals['checksum'])
+                vals['res_name'] = self._file_write(value, vals['checksum'])
             else:
                 vals['db_datas'] = value
             clean_vals = self._get_datas_clean_vals(attach)
